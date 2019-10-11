@@ -47,25 +47,7 @@ class _ChatListPageState extends State<ChatListPage> {
 
   @override
   Widget build(BuildContext context) {
-    var hasDetailPage =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-        Widget child;
-
-        if (hasDetailPage) {
-          child = new Row(
-            children: <Widget>[
-              new SizedBox(
-                width: 250,
-                height: double.infinity,
-                child: _buildList(context, hasDetailPage),
-              ),
-              new Expanded(child: _buildChat(context, selectedIndex),)
-            ],
-          );
-        } else {
-          child = _buildList(context, hasDetailPage);
-        }
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +55,24 @@ class _ChatListPageState extends State<ChatListPage> {
       ),
       body: SafeArea(
         // TODO: show responsive layout here
-        child: child,
+        child: LayoutBuilder(builder: (builder, constraints) {
+          var hasDetailPage = constraints.maxWidth > 600;
+
+          if (hasDetailPage) {
+            return Row(
+              children: <Widget>[
+                new SizedBox(
+                  width: 250,
+                  height: double.infinity,
+                  child: _buildList(context, hasDetailPage),
+                ),
+                Expanded(child: _buildChat(context, selectedIndex),)
+              ],
+            );
+          } else {
+            return _buildList(context, hasDetailPage);
+          }
+        },)
       ),
     );
   }
