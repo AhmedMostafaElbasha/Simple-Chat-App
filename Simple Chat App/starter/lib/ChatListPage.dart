@@ -47,13 +47,33 @@ class _ChatListPageState extends State<ChatListPage> {
 
   @override
   Widget build(BuildContext context) {
+    var hasDetailPage =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+        Widget child;
+
+        if (hasDetailPage) {
+          child = new Row(
+            children: <Widget>[
+              new SizedBox(
+                width: 250,
+                height: double.infinity,
+                child: _buildList(context, hasDetailPage),
+              ),
+              new Expanded(child: _buildChat(context, selectedIndex),)
+            ],
+          );
+        } else {
+          child = _buildList(context, hasDetailPage);
+        }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Chats"),
       ),
       body: SafeArea(
         // TODO: show responsive layout here
-        child: Container(),
+        child: child,
       ),
     );
   }
@@ -64,8 +84,8 @@ class _ChatListPageState extends State<ChatListPage> {
     return ListView.separated(
       itemCount: chat.conversations.length,
       separatorBuilder: (context, index) => Divider(
-            color: Colors.black.withAlpha(50),
-          ),
+        color: Colors.black.withAlpha(50),
+      ),
       itemBuilder: (context, index) {
         Conversation conversation = chat.conversations[index];
         List<User> users =
