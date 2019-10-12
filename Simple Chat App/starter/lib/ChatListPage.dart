@@ -55,8 +55,8 @@ class _ChatListPageState extends State<ChatListPage> {
       ),
       body: SafeArea(
         // TODO: show responsive layout here
-        child: LayoutBuilder(builder: (builder, constraints) {
-          var hasDetailPage = constraints.maxWidth > 600;
+        child: OrientationBuilder(builder: (builder, orientation) {
+          var hasDetailPage = orientation == Orientation.landscape;
 
           if (hasDetailPage) {
             return Row(
