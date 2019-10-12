@@ -90,7 +90,10 @@ class _ConversationPageState extends State<ConversationPage> {
             if (isGalleryVisible) _buildGalleryToolbar(context),
             if (isGalleryVisible)
               // TODO: show with aspect ratio 3
-              SquareGallery(),
+              AspectRatio(
+                aspectRatio: 3,
+                child: SquareGallery(),
+              ),
           ],
         ),
       ),
