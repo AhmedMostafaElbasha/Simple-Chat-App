@@ -79,9 +79,12 @@ class AvatarImageView extends StatelessWidget {
           .join()
           .toUpperCase();
       // TODO: fit text in box
-      return Text(
-        initials,
-        style: TextStyle(color: textColor, fontSize: 14),
+      return FittedBox(
+        fit: BoxFit.contain,
+        child: Text(
+          initials,
+          style: TextStyle(color: textColor, fontSize: 14),
+        ),
       );
     } else {
       return Image.network(
